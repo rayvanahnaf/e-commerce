@@ -44,4 +44,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function transaction_item() {
+        return $this->hahsMany(TransectionItem::class);
+    }
+    public function cart() {
+        return $this->hahsMany(cart::class);
+    }
+    public function transaction() {
+        return $this->hahsMany(Transaction::class);
+    }
 }
