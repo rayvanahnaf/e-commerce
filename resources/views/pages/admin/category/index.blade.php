@@ -64,7 +64,7 @@
     <script src="text/javascript">
         ;
 
-        function($) {
+        (function($) {
             function readURL(input) {
                 var $prev = $('preview-logo')
                 if (input.files && input.files[0]) {
@@ -82,6 +82,6 @@
             $('#image').on('change', function() {
                 readURL(this);
             });
-        }(jQuery);
+        })(jQuery);
     </script>
 @endpush
