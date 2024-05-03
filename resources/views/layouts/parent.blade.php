@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>@yield('title')</title>
+    <title>@yield('title')  </title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -33,7 +33,7 @@
 
     <!-- =======================================================
   * Template Name: NiceAdmin
-  * Updated: Jan 09 2024 with Bootstrap v5.3.2
+  * Updated: Jan 29 2024 with Bootstrap v5.3.2
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
@@ -45,7 +45,6 @@
     <!-- ======= Header ======= -->
     @include('layouts.include.navbar')
     <!-- End Header -->
-
     <!-- ======= Sidebar ======= -->
     @if (Auth::user()->role == 'admin')
         @include('layouts.include.sidebar.admin')
@@ -53,16 +52,32 @@
         @include('layouts.include.sidebar.user')
     @endif
     <!-- End Sidebar-->
-
     <main id="main" class="main">
 
-        @yield('content')
+        {{-- Handle Errors --}}
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading">There's Something Wrong!</h4>
+                <hr>
+                <p>
+                    <ul>
+                        @foreach ($errors->all() as $errors)
+                            <li>{{ $errors }}</li>
+                        @endforeach
+                    </ul>
+                </p>
+            </div>
+        @else
+            
+        @endif
 
+
+       @yield('content')
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
     @include('layouts.include.footer')
-    <!-- End Footer -->
+   <!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
@@ -76,6 +91,47 @@
     <script src="{{ asset('dashboard/assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
     <script src="{{ asset('dashboard/assets/vendor/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('dashboard/assets/vendor/php-email-form/validate.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script>
+        //sweetalert for success or error message
+        @if (session()->has('success'))
+            swal({
+                type: "success",
+                icon: "success",
+                title: "BERHASIL!",
+                text: "{{ session('success') }}",
+                timer: 5000,
+                showConfirmButton: false,
+                showCancelButton: false,
+                buttons: false,
+            });
+        @elseif (session()->has('error'))
+            swal({
+                type: "error",
+                icon: "error",
+                title: "GAGAL!",
+                text: "{{ session('error') }}",
+                timer: 5000,
+                showConfirmButton: false,
+                showCancelButton: false,
+                buttons: false,
+            });
+        @elseif (session()->has('info'))
+            swal({
+                type: "info",
+                icon: "info",
+                title: "INFO!",
+                text: "{{ session('info') }}",
+                timer: 5000,
+                showConfirmButton: false,
+                showCancelButton: false,
+                buttons: false,
+            });
+        @endif
+    </script>   
+
+
 
     <!-- Template Main JS File -->
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
