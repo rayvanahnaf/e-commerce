@@ -19,9 +19,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
     public function product_galleries() {
-        return $this->hashMany(ProductGallery::class);
+        return $this->hasMany(ProductGallery::class);
     }
     public function cart() {
-        return $this->hahsMany(cart::class);
+        return $this->hasMany(cart::class);
     }
 }
