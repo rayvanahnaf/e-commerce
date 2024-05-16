@@ -1,6 +1,6 @@
 @extends('layouts.parent')
 
-@section('title', 'Category')
+@section('title', 'Product')
 
 @section('content')
     <div class="card">
@@ -39,20 +39,19 @@
                             <td>{{ $row->category->name }}</td>
                             <td>{{ $row->price }}</td>
                             <td>
+                                <a href="{{ route('admin.product.gallery.index', $row->id) }}" class="btn btn-primary">
+                                    <i class="bi bi-image"></i>
+                                    </a>
                                 <a href="{{ route('admin.product.edit', $row->id) }}" class="btn btn-warning">
-                                    <i class="bi bi-pencil"></i>
+                                <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="{{ route('admin.product.destroy', $row->id) }}" method="post"
-                                    class="d-inline">
+                                <form action="{{ route('admin.product.destroy', $row->id) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger" type="submit">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </form>
-                                <a href="{{ route('admin.product.gallery.index', $row->id) }}" class="btn btn-info">
-                                    <i class="bi bi-card-image"></i>
-                                </a>
                             </td>
                         </tr>
                     @empty
@@ -88,9 +87,7 @@
                 }
             }
 
-            $('#image').on('change', function() {
-                readURL(this)
-            })
+            $('#image').on('change', function() {readURL(this)})
         })(jQuery)
     </script>
 @endpush

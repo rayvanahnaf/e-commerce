@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Exception;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -16,8 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        $product = Product::all();
+        $product = Product::select('id' ,'name', 'category_id', 'price')->latest()->get();
+
         return view('pages.admin.product.index', compact('product'));
     }
 
@@ -26,37 +25,32 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
-        $category = Category::all();
+        $category = Category::select('id', 'name')->latest()->get();
+
         return view('pages.admin.product.create', compact('category'));
     }
-
+ 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
         $this->validate($request, [
-            'category_id' => 'required',
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required'
+            "name" => 'required',
+            "category_id" => 'required',
+            "price" => 'required',
+            "description" => 'required'
         ]);
 
         try {
             $data = $request->all();
-
             $data['slug'] = Str::slug($request->name);
 
             Product::create($data);
 
-            // dd($product);
-            return redirect()->route('admin.product.index')->with('success', 'Product add successfully');
-
-        } catch (Exception $e) {
-            // dd($e->getMessage());
-            return redirect()->back()->with('error', 'Failed to add Product fill the category');
+            return redirect()->route('admin.product.index')->with('success', 'Product Has Been Successfully Added');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed To Added Product');
         }
     }
 
@@ -73,9 +67,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
         $product = Product::find($id);
-        $category = Category::all();
+        $category = Category::select('id', 'name')->latest()->get();
 
         return view('pages.admin.product.edit', compact('product', 'category'));
     }
@@ -85,30 +78,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-
         $this->validate($request, [
-            'category_id' => 'required',
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required'
+            "name" => 'required',
+            "category_id" => 'required',
+            "price" => 'required',
+            "description" => 'required'
         ]);
 
         try {
             $product = Product::find($id);
-            
-            $data = $request->all();
 
+            $data = $request->all();
             $data['slug'] = Str::slug($request->name);
 
             $product->update($data);
 
-            // dd($product);
-            return redirect()->route('admin.product.index')->with('success', 'Product add successfully');
-
-        } catch (Exception $e) {
-            // dd($e->getMessage());
-            return redirect()->back()->with('error', 'Failed to add Product');
+            return redirect()->route('admin.product.index')->with('success', 'Product Has Been Successfully Edited');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', 'Failed To Edited Product');
         }
     }
 
@@ -117,16 +105,14 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
         try {
-            //find category
             $product = Product::find($id);
 
             $product->delete();
 
-            return redirect()->back()->with('success', 'product deleted');
-        } catch (Exception $e) {
-            return redirect()->back()->with('error', 'Failed to delete');
+            return redirect()->back()->with('success', "Product Has Been Successfully Deleted");
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', "Failed To Delete Product");
         }
     }
 }

@@ -3,73 +3,99 @@
 @section('title', 'Dashboard - Admin')
 
 @section('content')
-    <div class="section dashboard"> 
-            <div class="card info-card customers-card">
-                <div class="card-body">
-                    <h5 class="card-title">Dashboard <span class="badge bg-success bi bi-check-circle me-1 text-white"> Admin</span></h5>
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                            <i class="bi bi-people"></i>
-                        </div>
-                        <div class="ps-3">
-                            <h6>1244</h6>
-                            <span class="text-danger small pt-1 fw-bold">12%</span> <span
-                                class="text-muted small pt-2 ps-1">decrease</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Dashboard</h5>
+
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+                    <li class="breadcrumb-item"><a href="#">Library</a></li>
+                    <li class="breadcrumb-item active">Default</li>
+                </ol>
+            </nav>
+        </div>
     </div>
 
     <div class="section dashboard">
         <div class="row">
-            <div class="col-md-4">
-                <div class="card info-card sales-card">
-                    {{-- Category Card --}}
+            <div class="col-12">
+
+                <div class="card info-card customers-card">
+
                     <div class="card-body">
-                        <h5 class="card-title">Category</h5>
+                        <h5 class="card-title">Dashboard <span>| This Year</span></h5>
 
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-cart"></i>
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{ Auth::user()->name }}</h6>
+                                <span class="text-danger small pt-1 fw-bold">{{ Auth::user()->email }}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxl-4 col-md-6">
+                <div class="card info-card sales-card">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Category <span>| Today</span></h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="ri ri-home-smile-line"></i>
                             </div>
                             <div class="ps-3">
                                 <h6>{{ $category }}</h6>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-            <div class="col-md-4">
+
+            <div class="col-xxl-4 col-md-6">
                 <div class="card info-card sales-card">
-                    {{-- Product Card --}}
+
                     <div class="card-body">
-                        <h5 class="card-title">Product</h5>
+                        <h5 class="card-title">Product <span>| Today</span></h5>
+
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-cart-check-fill"></i>
+                                <i class="bi bi-minecart"></i>
                             </div>
                             <div class="ps-3">
                                 <h6>{{ $product }}</h6>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-            <div class="col-md-4">
+
+            <div class="col-xxl-4 col-md-6">
                 <div class="card info-card sales-card">
-                    {{-- User Card --}}
+
                     <div class="card-body">
-                        <h5 class="card-title">User</h5>
+                        <h5 class="card-title">User <span>| Today</span></h5>
+
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-person-fill"></i>
+                                <i class="bi bi-people"></i>
                             </div>
                             <div class="ps-3">
                                 <h6>{{ $user }}</h6>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

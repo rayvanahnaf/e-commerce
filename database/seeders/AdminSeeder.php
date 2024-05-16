@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
 {
@@ -14,11 +13,11 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = new User();
-        $admin->name = 'admin';
-        $admin->role = 'admin';
-        $admin->email = 'admin@gmail.com';
-        $admin->password = bcrypt('admin');
-        $admin->save();
+        $user = new User();
+        $user->name = 'Admin';
+        $user->email = 'admin@gmail.com';
+        $user->password = bcrypt('admin');
+        $user->role = 'admin';
+        $user->save();
     }
 }
