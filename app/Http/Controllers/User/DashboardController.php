@@ -2,41 +2,50 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
-    public function index() {
+    //
+    public function index(){
         return view('pages.user.index');
     }
 
-    public function changePassword(Request $request) {
-        $this->validate($request, [
-            'old_password' => 'required',
-            'password' => 'required',
-            'confirm_password' => 'required'
-        ]);
+    public function updatePassword(){
+        return view('pages.user.updatePassword');
+    }
 
+    public function changePassword(Request $request){
+        $this->validate($request, [
+            'current_password' => 'required',
+            'password' => 'required|min:6',
+            'confrimation_password' => 'required'
+        ]);
+        
+        
         try {
-            $currentPassword = Hash::check($request->old_password, auth()->user()->password);
+            $currentPassword = Hash::check(
+                $request->current_password, auth()->user()->password
+            );
 
             if ($currentPassword) {
-                if ($request->password == $request->confirm_password) {
+                if($request->password == $request->confrimation_password){
                     $user = auth()->user();
+
                     $user->password = Hash::make($request->password);
                     $user->save();
 
-                    return redirect()->back()->with('success', 'Your Password Successfully Has Been Changed');
-                } else {
-                    return redirect()->back()->with('error', 'Your New Password Is Not Same With Confirm Password');
-                }
-            } else {
-                return redirect()->back()->with('error', 'Your Old Password Is Wrong');
+                    return redirect()->route('user.dashboard')->with('success', 'Password has been change');
+                }else {
+                    return redirect()->route('user.updatePassword')->with('error', 'Password does not match');
+                } 
+            }else {
+                return redirect()->route('user.updatePassword')->with('error', 'current Password does not match');
             }
-        } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Failed To Change Password');
+        } catch (\Exception $e) {
+            return redirect()->route('user.updatePasswordx')->with('error', 'error!');
         }
     }
 }

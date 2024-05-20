@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,11 +28,11 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected function redirectTo() {
-        if (Auth::user()->role == "admin") {
-            return "admin/dashboard";
-        } else {
-            return "user/dashboard";
+    protected function redirectTo(){
+        if (auth()->user()->role == 'admin') {
+            return '/admin/dashboard';
+        } else{
+            return '/user/dashboard';
         }
     }
 

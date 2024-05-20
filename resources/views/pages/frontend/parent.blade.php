@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html class="no-js" lang="">
 
 <head>
@@ -16,22 +15,19 @@
     <link rel="apple-touch-icon" href="{{ asset('frontend/images/content/favicon.png') }}" />
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="{{ asset('frontend/./css/main.css') }}" />
-    <link rel="icon" href="images/content/favicon.png" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="icon" href="{{ asset('frontend/images/content/favicon.png') }}" />
 
     <meta name="theme-color" content="#000" />
-    <link rel="icon" href="{{ asset('frontend/favicon.ico') }}">
+    <link rel="icon" href="favicon.ico">
     <link href="{{ asset('frontend/css/app.minify.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <!-- Add your site or application content here -->
 
-    <!-- START: HEADER -->
-
-
-    <!-- END: HEADER -->
     @include('pages.frontend.include.navbar')
+
     <!-- START: HERO -->
     <section class="flex items-center hero">
         <div
@@ -85,7 +81,7 @@
             <div class="grid grid-rows-2 grid-cols-9 gap-4">
                 <div class="relative col-span-9 row-span-1 md:col-span-4 card" style="height: 180px">
                     <div class="card-shadow rounded-xl">
-                        <img src="{{ asset('frontend/./images/content/image-catalog-1.png') }}" alt=""
+                        <img src="{{ asset('frontend/images/content/image-catalog-1.png') }}" alt=""
                             class="w-full h-full object-cover object-center overlay overflow-hidden rounded-xl" />
                     </div>
                     <div class="overlay left-0 top-0 bottom-0 flex justify-center flex-col pl-48 md:pl-72">
@@ -98,7 +94,7 @@
                 </div>
                 <div class="relative col-span-9 row-span-1 md:col-span-2 md:row-span-2 card">
                     <div class="card-shadow rounded-xl">
-                        <img src="{{ asset('frontend/./images/content/image-catalog-3.png') }}" alt=""
+                        <img src="{{ asset('frontend/images/content/image-catalog-3.png') }}" alt=""
                             class="w-full h-full object-cover object-center overlay overflow-hidden rounded-xl" />
                     </div>
                     <div
@@ -112,7 +108,7 @@
                 </div>
                 <div class="relative col-span-9 row-span-1 md:col-span-3 md:row-span-2 card">
                     <div class="card-shadow rounded-xl">
-                        <img src="{{ asset('frontend/./images/content/image-catalog-4.png') }}" alt=""
+                        <img src="{{ asset('frontend/images/content/image-catalog-4.png') }}" alt=""
                             class="w-full h-full object-cover object-center overlay overflow-hidden rounded-xl" />
                     </div>
                     <div
@@ -126,7 +122,7 @@
                 </div>
                 <div class="relative col-span-9 row-span-1 md:col-span-4 card">
                     <div class="card-shadow rounded-xl">
-                        <img src="{{ asset('frontend/./images/content/image-catalog-2.png') }}" alt=""
+                        <img src="{{ asset('frontend/images/content/image-catalog-2.png') }}" alt=""
                             class="w-full h-full object-cover object-center overlay overflow-hidden rounded-xl" />
                     </div>
                     <div class="overlay left-0 top-0 bottom-0 flex justify-center flex-col pl-48 md:pl-72">
@@ -142,25 +138,23 @@
     </section>
     <!-- END: BROWSE THE ROOM -->
 
-    <!-- START: JUST ARRIVED -->
     @yield('content')
-    <!-- END: JUST ARRIVED -->
 
     <!-- START: CLIENTS -->
     <section class="container mx-auto">
         <div class="flex justify-center flex-wrap">
             <div class="w-full flex-auto md:w-auto md:flex-initial px-4 md:px-6 my-4 md:my-0">
-                <img src="{{ asset('frontend/./images/content/logo-adobe.svg/') }}" alt="" class="mx-auto">
+                <img src="{{ asset('frontend/images/content/logo-adobe.svg') }}" alt="" class="mx-auto" />
             </div>
             <div class="w-full flex-auto md:w-auto md:flex-initial px-4 md:px-6 my-4 md:my-0">
-                <img src="{{ asset('frontend/./images/content/logo-ikea.svg/') }}" alt="" class="mx-auto">
+                <img src="{{ asset('frontend/images/content/logo-ikea.svg') }}" alt="" class="mx-auto" />
             </div>
             <div class="w-full flex-auto md:w-auto md:flex-initial px-4 md:px-6 my-4 md:my-0">
-                <img src="{{ asset('frontend/./images/content/logo-hermanmiller.svg') }}" alt=""
+                <img src="{{ asset('frontend/images/content/logo-hermanmiller.svg') }}" alt=""
                     class="mx-auto" />
             </div>
             <div class="w-full flex-auto md:w-auto md:flex-initial px-4 md:px-6 my-4 md:my-0">
-                <img src="{{ asset('frontend/./images/content/logo-miele.svg/') }}" alt="" class="mx-auto">
+                <img src="{{ asset('frontend/images/content/logo-miele.svg') }}" alt="" class="mx-auto" />
             </div>
         </div>
     </section>
@@ -170,10 +164,10 @@
 
     <!-- START: LOAD SVG -->
     <!-- <svg width="23" height="26" class="hidden" id="icon-play">
-      <path
+        <path
         d="M21 9.536c2.667 1.54 2.667 5.39 0 6.928l-15 8.66c-2.667 1.54-6-.385-6-3.464V4.34C0 1.26 3.333-.664 6 .876l15 8.66z"
         fill="#fff"
-      />
+        />
     </svg> -->
     <!-- END: LOAD SVG  -->
 

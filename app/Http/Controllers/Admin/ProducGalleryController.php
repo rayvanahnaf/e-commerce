@@ -8,15 +8,18 @@ use App\Models\ProductGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ProductGalleryController extends Controller
+class ProducGalleryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index($id)
     {
+        //
         $product = Product::findOrFail($id);
         $gallery = $product->product_galleries;
+
+        // dd($product);
 
         return view('pages.admin.product.gallery.index', compact('product', 'gallery'));
 
@@ -36,21 +39,25 @@ class ProductGalleryController extends Controller
      */
     public function store(Request $request, Product $product)
     {
+        //
         try {
+
             $files = $request->file('files');
 
             foreach ($files as $file) {
+                //upload gambar(image)
                 $file->storeAs('public/product/gallery', $file->hashName());
 
                 $product->product_galleries()->create([
-                    "product_id" => $product->id,
-                    "image" => $file->hashName()
+                    'products_id' => $product->id,
+                    'image' => $file->hashName()
                 ]);
             }
 
-            return redirect()->route('admin.product.gallery.index', $product->id)->with('success', 'Success To Add Gallery');
+            return redirect()->route('admin.product.gallery.index', $product->id)->with('success', 'Image uploaded successfully');
         } catch (\Exception $e) {
-            return redirect()->route('admin.product.gallery.index', $product->id)->with('error', 'Failed To Add Gallery');
+            dd($e->getMessage());
+            return redirect()->route('admin.product.gallery.index', $product->id)->with('error', 'Failed to upload image!');
         }
     }
 
@@ -83,19 +90,23 @@ class ProductGalleryController extends Controller
      */
     public function destroy(Product $product, ProductGallery $gallery)
     {
+        //
         try {
-            $product = $product->findOrFail($product->id);
-            // get gallery by id
+            // get data product
+            $product = $product->findOrfail($product->id);
+
+            //get data gallery
             $gallery = $gallery->findOrFail($gallery->id);
 
+            Storage::disk('local')->delete('public/product/gallery/' . basename($gallery->image));
+            
             //delete image from storage
-            Storage::delete('public/product/gallery/' . basename($gallery->image));
             $gallery->delete();
 
             return redirect()->route('admin.product.gallery.index', $product->id)->with('success', 'Image deleted successfully');
         } catch (\Exception $e) {
             dd($e->getMessage());
-            return redirect()->route('admin.product.gallery.index', $product->id)->with('error', 'Failed to delete image');
+            return redirect()->route('admin.product.gallery.index', $product->id)->with('error', 'Failed to delete image!');
         }
     }
 }

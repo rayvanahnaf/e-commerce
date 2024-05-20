@@ -15,7 +15,7 @@ class ProductGallery extends Model
         'is_featured'
     ];
 
-    public function product() {
+    public function product(){
         return $this->belongsTo(Product::class);
     }
 }

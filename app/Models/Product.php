@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'category_id',
         'name',
@@ -17,19 +16,18 @@ class Product extends Model
         'price'
     ];
 
-    public function category() {
-        return $this->belongsTo(Category::class);
+    public function category()
+    {
+        return $this->belongsTo(category::class);
     }
 
-    public function product_galleries() {
+    public function product_galleries()
+    {
         return $this->hasMany(ProductGallery::class);
     }
 
-    public function cart() {
+    public function cart()
+    {
         return $this->hasMany(Cart::class);
-    }
-
-    public function transaction_item() {
-        return $this->hasMany(TransactionItem::class);
     }
 }

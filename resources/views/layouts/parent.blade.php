@@ -10,8 +10,8 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('dashboard/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('dashboard/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('dashboard/assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('dashboard/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -20,16 +20,16 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="{{ asset('dashboard/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/vendor/quill/quill.snow.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="{{ asset('dashboard/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/assets/css/style.css') }}" rel="stylesheet">
 
     <!-- =======================================================
   * Template Name: NiceAdmin
@@ -37,7 +37,7 @@
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    ======================================================== -->
 </head>
 
 <body>
@@ -55,22 +55,23 @@
     <!-- End Sidebar-->
 
     <main id="main" class="main">
-        {{-- Handle Error --}}
+
         @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show">
-                <h4 class="alert-heading">There's something wrong!</h4>
-                <hr>
-                <p>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </p>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h4 class="aletr-heading">There's something worng!</h4>
             </div>
+            <hr>
+            <p>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            </p>
         @endif
 
         @yield('content')
+
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
@@ -81,14 +82,14 @@
             class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
-    <script src="{{ asset('dashboard/vendor/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/chart.js/chart.umd.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/echarts/echarts.min.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/quill/quill.min.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/simple-datatables/simple-datatables.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/tinymce/tinymce.min.js') }}"></script>
-    <script src="{{ asset('dashboard/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/echarts/echarts.min.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/quill/quill.min.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/php-email-form/validate.js') }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
     <script>
@@ -130,7 +131,8 @@
     </script>
 
     <!-- Template Main JS File -->
-    <script src="{{ asset('dashboard/js/main.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
+
 
 </body>
 

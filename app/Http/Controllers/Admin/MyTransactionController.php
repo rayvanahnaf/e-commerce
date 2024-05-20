@@ -13,10 +13,9 @@ class MyTransactionController extends Controller
      */
     public function index()
     {
+        //
         $myTransaction = Transaction::with(['user'])->where('user_id', auth()->user()->id)->get();
-        return view('pages.admin.my-transaction.index', compact(
-            'myTransaction'
-        ));
+        return view('pages.admin.my-transaction.index', compact('myTransaction'));
     }
 
     /**

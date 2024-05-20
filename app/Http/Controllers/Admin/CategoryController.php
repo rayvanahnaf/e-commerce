@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Exception;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        //
         $category = Category::select('id', 'name', 'image')->latest()->get();
 
         return view('pages.admin.category.index', compact('category'));
@@ -33,24 +35,30 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        //
         $this->validate($request, [
-            "name" => 'required',
-            "image" => 'required|image|mimes:png,jpg,jpeg|max:2048'
+            'name' => 'required',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         try {
             $data = $request->all();
 
+            //storage image
             $image = $request->file('image');
             $image->storeAs('public/category', $image->hashName());
 
             $data['image'] = $image->hashName();
             $data['slug'] = Str::slug($request->name);
-            Category::create($data);
+            Category::create($data);    
 
-            return redirect()->back()->with('success', "Category Has Been Successfully Added");
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed To Add Category');
+            // dd($category);
+
+            return redirect()->back()->with('success', 'Category add successfully');
+
+        } catch (Exception $e) {
+            // dd($e->getMessage());
+            return redirect()->back()->with('error', 'Failed to add category');
         }
     }
 
@@ -59,6 +67,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
+        //
     }
 
     /**
@@ -74,34 +83,39 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        //
         $this->validate($request, [
-            "name" => 'required',
-            "image" => 'image|mimes:png,jpg,jpeg|max:2048'
+            'name' => 'required',
+            'image' => 'image|mimes:jpg,jpeg,png|max:9000'
         ]);
 
         try {
             $category = Category::find($id);
-            $data = $request->all();
-
+            
             if ($request->file('image') == '') {
+                $data = $request->all();
                 $data['slug'] = Str::slug($request->name);
+
+                $category->update($data);
+                
             } else {
+                //delete old image 
                 Storage::disk('local')->delete('public/category/' . basename($category->image));
 
+                //storge new image
                 $image = $request->file('image');
                 $image->storeAs('public/category', $image->hashName());
 
+                $data = $request->all();
                 $data['image'] = $image->hashName();
                 $data['slug'] = Str::slug($request->name);
+
+                $category->update($data);
             }
-
-            $category->update($data);
-
-            return redirect()->back()->with('success', 'Category Has Been Successfully Updated');
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-
-            return redirect()->back()->with('error', "Failed To Update Category");
+            return redirect()->back()->with('success', 'Category updated');
+            
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update');
         }
     }
 
@@ -110,16 +124,19 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
+        //
         try {
+            //find category
             $category = Category::find($id);
 
+            //delete image
             Storage::disk('local')->delete('public/category/' . basename($category->image));
 
             $category->delete();
 
-            return redirect()->back()->with('success', "Category Has Been Successfully Deleted");
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', "Failed To Delete Category");
+            return redirect()->back()->with('success', 'Category deleted');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Failed to delete');
         }
     }
 }

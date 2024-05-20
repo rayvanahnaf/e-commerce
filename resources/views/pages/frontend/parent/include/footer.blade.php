@@ -2,7 +2,8 @@
 <section class="">
     <div class="border-b border-gray-200 py-12 mt-16 px-4">
         <div class="flex justify-center mb-8">
-            <img src="images/content/logo.png" alt="Luxspace | Fulfill your house with beautiful furniture" />
+            <img src="{{ asset('frontend/images/content/logo.png') }}"
+                alt="Luxspace | Fulfill your house with beautiful furniture" />
         </div>
         <aside class="container mx-auto">
             <div class="flex flex-wrap -mx-4 justify-center">
@@ -54,8 +55,7 @@
                     </h5>
                     <form action="#">
                         <label class="relative w-full">
-                            <input type="text"
-                                class="bg-gray-100 rounded-xl py-3 px-5 w-full focus:outline-none"
+                            <input type="text" class="bg-gray-100 rounded-xl py-3 px-5 w-full focus:outline-none"
                                 placeholder="Your email adress" />
                             <button class="bg-pink-400 absolute rounded-xl right-0 p-3">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
