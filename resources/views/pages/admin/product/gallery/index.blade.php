@@ -1,57 +1,58 @@
 @extends('layouts.parent')
 
-@section('title', 'Product - Gallery')
+@section('title', 'Admin - ProductGallery')
 
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Product Gallery --> {{ $product->name }}</h5>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.product.index') }}">Product</a></li>
-                    <li class="breadcrumb-item active">Data Product Gallery</li>
-                </ol>
-            </nav>
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title fs-2">Product Gallery >> {{$product->name}}</h2>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.product.index')}}">Product</a></li>
+                <li class="breadcrumb-item active">Product Gallery</li>
+            </ol>
+        </nav>
 
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
-                <i class="bi bi-plus"></i> Product gallery
-            </button>
-            @include('pages.admin.product.gallery.modal-create')
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
+            <i class="bi bi-plus"></i> Add Images
+        </button>
+        @include('pages.admin.Product.gallery.modal-create')
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($product->product_galleries as $row )
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td><img src="{{url ('storage/product/gallery/',$row->image) }}"  class="img-fluid" width="100px"     alt="{{ $row->name }}"></td>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Image</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($product->product_galleries as $row)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td><img src="{{ url('/storage/product/gallery',$row->image)  }}" alt="gambar" class="img-thumbnail" width="100"></td>
-                            <td>
-                                <form action="{{ route('admin.product.gallery.destroy', [$product->id, $row->id]) }}" method="post"> 
-                                @csrf
-                                @method('delete')
-                                <button class="btn btn-danger" type="submit" class="d-inline">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                    <tr>
-                        <td colspan="3" class="text-center" > Gallery is empty</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-            <a href="{{ route('admin.product.index') }}" class="btn btn-primary">
-            <i class="bi bi-arrow-left"></i>Back
-        </a>
+                    <td>
+                        <form action="{{ route('admin.product.gallery.destroy', [$product->id,$row->id]) }}" method="post" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td class="text-center" colspan="3">
+                        Data Not Found
+                    </td>
+                </tr>
+                @endforelse
+
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+        <a href="{{route('admin.product.index')}}" class="btn btn-outline-warning"><i class="bi bi-back"></i> Back</a>
         </div>
     </div>
+</div>
 @endsection

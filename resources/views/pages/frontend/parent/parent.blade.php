@@ -12,33 +12,40 @@
     <meta property="og:url" content="" />
     <meta property="og:image" content="" />
 
-    <link rel="manifest" href="{{ asset('frontend/site.webmanifest') }}" />
+    <link rel="manifest" href="site.webmanifest" />
     <link rel="apple-touch-icon" href="{{ asset('frontend/images/content/favicon.png') }}" />
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="{{ asset('frontend/./css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/main.css') }}" />
     <link rel="icon" href="{{ asset('frontend/images/content/favicon.png') }}" />
 
     <meta name="theme-color" content="#000" />
-    <link rel="icon" href="{{ asset('frontend/favicon.ico') }}">
+    <link rel="icon" href="favicon.ico">
     <link href="{{ asset('frontend/css/app.minify.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <!-- Add your site or application content here -->
 
-    @include('pages.frontend.parent.include.navbar')
+    <!-- START: HEADER -->
+   @include('pages.frontend.parent.include.navbar')
 
-    @yield('content')
+    <!-- END: HEADER -->
 
-    @include('pages.frontend.parent.include.footer')
+ @yield('content')
+
+    <!-- START: COMPLETE YOUR ROOM -->
+   
+    <!-- END: COMPLETE YOUR ROOM -->
+
+@include('pages.frontend.parent.include.footer')
 
     <!-- START: LOAD SVG -->
     <!-- <svg width="23" height="26" class="hidden" id="icon-play">
-        <path
+      <path
         d="M21 9.536c2.667 1.54 2.667 5.39 0 6.928l-15 8.66c-2.667 1.54-6-.385-6-3.464V4.34C0 1.26 3.333-.664 6 .876l15 8.66z"
         fill="#fff"
-        />
+      />
     </svg> -->
     <!-- END: LOAD SVG  -->
 
@@ -55,7 +62,7 @@
         ga("send", "pageview");
     </script>
     <script src="https://www.google-analytics.com/analytics.js" async></script>
-    <script src="{{ asset('frontend/js/app.js') }}"></script>
+    <script src="{{asset ('frontend/js/app.js')}}"></script>
 </body>
 
 </html>

@@ -1,9 +1,9 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-            <img src="assets/img/logo.png" alt="">
-            <span class="d-none d-lg-block">NiceAdmin</span>
+        <a href="/" class="logo d-flex align-items-center">
+            <img src="{{asset('dashboard/assets/img/logo_RYVN-removebg-preview.png')}}" alt="">
+            <span class="d-none d-lg-block">AdminRV</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -117,7 +117,7 @@
 
                     <li class="message-item">
                         <a href="#">
-                            <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                            <img src="/dashboard/assets/img/messages-1.jpg" alt="" class="rounded-circle">
                             <div>
                                 <h4>Maria Hudson</h4>
                                 <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -167,17 +167,19 @@
 
             <li class="nav-item dropdown pe-3">
 
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                    data-bs-toggle="dropdown">
-                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                @if (empty(Auth::user()->profile->image))
+                        <img src="https://ui-avatars.com/api/background=random&color=fff?name={{ Auth::user()->name }}" alt="" class="img-fluid w-100 rounded-circle">
+                        @else
+                        <img src="{{ Auth::user()->profile->image }}" alt="pp" class="img-fluid w-100 rounded-circle">
+                        @endif  
+                    <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth::user()->name}}</span>
                 </a><!-- End Profile Iamge Icon -->
 
-                @if (Auth::user()->role == 'admin' )
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>{{ Auth::user()->name }}</h6>
-                        <span>{{ Auth::user()->role }}</span>
+                        <h6>{{Auth::user()->name}}</h6>
+                        <span>{{Auth::user()->role}}</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
@@ -194,9 +196,9 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                            <i class="bi bi-gear"></i>
-                            <span>Account Settings</span>
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('profile.change-password')}}">
+                            <i class="ri-admin-line"></i>
+                            <span>Change Password</span>
                         </a>
                     </li>
                     <li>
@@ -214,73 +216,20 @@
                     </li>
 
                     <li>
-                        <form action="{{ route('logout') }}" method="post">
+                        <form action="{{route('logout')}}" method="post">
                             @csrf
                             <button class="dropdown-item d-flex align-items-center" type="submit">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </button>
                         </form>
+
                     </li>
 
                 </ul><!-- End Profile Dropdown Items -->
-                @else
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                    <li class="dropdown-header">
-                        <h6>{{ Auth::user()->name }}</h6>
-                        <span>{{ Auth::user()->role }}</span>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                            <i class="bi bi-person"></i>
-                            <span>My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                            <i class="bi bi-gear"></i>
-                            <span>Account Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a href="{{ route('user.updatePassword') }}" class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                            <i class="bi bi-question-circle"></i>
-                            <span>change password?</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button class="dropdown-item d-flex align-items-center" type="submit">
-                                <i class="bi bi-box-arrow-right"></i>
-                                <span>Sign Out</span>
-                            </button>
-                        </form>
-                    </li>
-
-                </ul><!-- End Profile Dropdown Items -->
-                @endif
-
-                
             </li><!-- End Profile Nav -->
 
         </ul>
     </nav><!-- End Icons Navigation -->
 
-</header>
+</header><!-- End Header -->

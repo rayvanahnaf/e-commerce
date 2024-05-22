@@ -30,5 +30,22 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'midtrans' => [
+        // The server key for authenticating API requests from your server
+        'serverKey' => env('MIDTRANS_SERVER_KEY'),
+    
+        // The client key for client-side authentication
+        'clientKey' => env('MIDTRANS_CLIENT_KEY'),
+    
+        // Boolean flag to determine if the environment is production
+        // If set to true, use the production endpoint; otherwise, use the sandbox/testing environment
+        'isProduction' => env('MIDTRANS_IS_PRODUCTION', false),
+    
+        // Boolean flag to enable or disable request sanitization
+        'isSanitized' => env('MIDTRANS_IS_SANITIZED', true),
+    
+        // Boolean flag to enable or disable 3-D Secure (3DS) for added security in online transactions
+        'is3ds' => env('MIDTRANS_IS_3DS', true),
+    ],
 
 ];

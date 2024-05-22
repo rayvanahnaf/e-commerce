@@ -1,41 +1,47 @@
 <?php
 
-use App\Http\Controllers\Admin\MyTransactionController;
-use App\Http\Controllers\Admin\TransactionController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProducGalleryController;
+use App\Http\Controllers\Admin\MyTransaction;
 use App\Http\Controllers\Admin\ProductController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\ProductGalleryController;
+use App\Http\Controllers\Admin\transactionController;
+use App\Http\Controllers\AdminCategory;
+use App\Models\Product;
+use App\Models\ProductGallery;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [App\Http\Controllers\FrontEnd\FrontEndController::class, 'index']);
-Route::get('/detail-product/{slug}', [App\Http\Controllers\FrontEnd\FrontEndController::class, 'detailProduct'])->name('detail.product');
-Route::get('/detail-category/{slug}', [App\Http\Controllers\FrontEnd\FrontEndController::class, 'detailCategory'])->name('detail.category');
+Route::get('/',[\App\Http\Controllers\Frontend\FrontendController::class, 'index']);
+Route::get('/detail-product/{slug}',[\App\Http\Controllers\Frontend\FrontendController::class, 'detailProduct'])->name('detail.product');
+Route::get('/detail-category/{slug}',[\App\Http\Controllers\Frontend\FrontendController::class, 'detailCategory'])->name('detail.category');
 
 Auth::routes();
 
-Route::middleware('auth')->group(function() {
-    Route::get('/cart', [App\Http\Controllers\FrontEnd\FrontEndController::class, 'cart'])->name('cart');
-    Route::post('/cart/{id}', [App\Http\Controllers\FrontEnd\FrontEndController::class, 'addToCart'])->name('cart.add');
-    Route::delete('/cart/{id}', [App\Http\Controllers\FrontEnd\FrontEndController::class, 'deleteCart'])->name('cart.delete');
+Route::middleware('auth')->group(function(){
+    Route::get('/cart',[\App\Http\Controllers\Frontend\FrontendController::class, 'cart'])->name('cart');
+    Route::post('/addTocart/{id}',[\App\Http\Controllers\Frontend\FrontendController::class, 'addToCart'])->name('addtocart');
+    Route::delete('/cart/{id}',[\App\Http\Controllers\Frontend\FrontendController::class, 'deleteCart'])->name('deletecart');
+    Route::post('/checkout',[\App\Http\Controllers\Frontend\FrontendController::class, 'checkout'])->name('checkout');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::name('admin.')->prefix('admin')->middleware('admin')->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/userList', [App\Http\Controllers\Admin\DashboardController::class, 'userList'])->name('userList');
-    Route::put('/resetPassword/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'resetPassword'])->name('resetPassword');
-    Route::resource('/category', CategoryController::class)->except(['create', 'show', 'edit']);
-    Route::resource('/product', ProductController::class);
-    Route::resource('/product.gallery', ProducGalleryController::class)->except(['create', 'show', 'edit', 'update']);
-    Route::resource('/transaction', TransactionController::class);
-    Route::resource('/my-transaction',MyTransactionController::class)->only(['index', 'show']);
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\Dashboard::class, 'index'])->name('dashboard');
+    Route::put('/reset-password/{id}',[\App\Http\Controllers\Admin\Dashboard::class, 'resetpassword'])->name('resetpassword');
+    Route::resource('/category', AdminCategory::class)->except('create','show','edit');
+    Route::resource('/product', ProductController::class)->except('create','show','edit');
+    Route::resource('/product.gallery',ProductGalleryController::class)->except('create','show','edit','update');
+    Route::resource('/mytransaction',MyTransaction::class)->only('index','show');
+    Route::resource('/transaction',transactionController::class);
 });
 
 Route::name('user.')->prefix('user')->middleware('user')->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/updatePassword', [App\Http\Controllers\User\DashboardController::class, 'updatePassword'])->name('updatePassword');
-    Route::resource('/my-transaction',MyTransactionController::class)->only(['index', 'show']);
-    Route::put('/changePassword', [App\Http\Controllers\User\DashboardController::class, 'changePassword'])->name('changePassword');
+    Route::get('/dashboard', [\App\Http\Controllers\user\Dashboardcontroller::class, 'index'])->name('dashboard');
+    Route::resource('/transaction',MyTransaction::class)->only('index', 'show');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/change-password',[\App\Http\Controllers\Profile\ProfileController::class, 'changePassword'])->name('profile.change-password');
+    Route::put('/update-password',[\App\Http\Controllers\Profile\ProfileController::class, 'updatePassword'])->name('profile.update-password');
+});
+
+
