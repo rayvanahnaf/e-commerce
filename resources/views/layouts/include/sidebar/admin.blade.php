@@ -23,7 +23,7 @@
                         <i class="bi bi-circle"></i><span>Data Product</span>
                     </a>
                 </li>
-            </ul>
+            </ul>   
         </li><!-- End Components Nav -->
 
         <li class="nav-item">

@@ -6,11 +6,7 @@
             <h3 class="fs-4">My Transaction</h3>
             <nav class="">
                 <ol class="breadcrumb">
-                    @if (Auth::user()->role == 'admin')
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    @else
-                    <li class="breadcrumb-item"><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
-                    @endif
                     <li class="breadcrumb-item"><a href="#">Transaction</a></li>
                     <li class="breadcrumb-item active">My Transaction</li>
                 </ol>
@@ -30,21 +26,30 @@
                         <th>Account</th>
                         <th>Reciever Name</th>
                         <th>Email</th>
-                        <th>Phone</th>
-                        <th>Status</th>
+                        <th>Reciever Phone</th>
+                        <th>Payment Url</th>
+                        <th>status</th>
                         <th>Total Price</th>
                         <th>Action</th>
+
                     </tr>
                 </thead>
                 <tbody>
 
-                    @forelse ($mytransaction as $row)
+                    @forelse ($transaction as $row)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ auth()->user()->name }}</td>
+                            <td>{{ $row->user->name }}</td>
                             <td>{{ $row->name }}</td>
                             <td>{{ $row->email }}</td>
                             <td>{{ $row->phone }}</td>
+                            <td>
+                                @if ($row->payment_url)
+                                    <a href="{{ $row->payment_url }}" target="_blank" class="btn btn-info d-flex justify-content-center">Pay</a>
+                                @else
+                                    N/A
+                                @endif
+                            </td>
                             <td>
                                 @if ($row->status == 'EXPIRED')
                                 <span class="badge bg-danger text-uppercast">Expired</span>
@@ -63,13 +68,6 @@
                                     <i class="bi bi-eye"></i>
                                 </button>
                                 @include('pages.admin.my-transaction.modal-show')
-                            </td>
-                            <td>
-                                @if (Auth::user()->role == 'admin')
-                                    <a href="{{ route('admin.mytransaction.show', $row->id) }}" class="btn btn-info"><i class="bi bi-eye">detail</i></a>
-                                @else
-                                <a href="{{ route('user.mytransaction.show', $row->id) }}" class="btn btn-info"><i class="bi bi-eye">detail</i></a>
-                                @endif
                             </td>
                         </tr>
                     @empty
