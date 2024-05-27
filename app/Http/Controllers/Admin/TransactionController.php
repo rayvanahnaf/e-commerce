@@ -48,7 +48,9 @@ class transactionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // get transaction by id
+        
+
     }
 
     /**
@@ -56,7 +58,17 @@ class transactionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $transaction = transaction::findOrFail($id);
+
+        try {
+            // update status transaction
+            $transaction->update([
+                'status' => $request->status
+            ]);
+            return redirect()->route('admin.transaction.index')->with('success', 'Success!');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.transaction.index')->with('error', 'Something wrong!');
+        }
     }
 
     /**

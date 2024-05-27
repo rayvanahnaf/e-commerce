@@ -66,9 +66,9 @@
                             </td>
                             <td>
                                 @if (Auth::user()->role == 'admin')
-                                    <a href="{{ route('admin.mytransaction.show', $row->id) }}" class="btn btn-info"><i class="bi bi-eye">detail</i></a>
+                                    <a href="{{ route('admin.mytransaction.showDataBySlugAndId', [$row->slug, $row->id]) }}" class="btn btn-info"><i class="bi bi-eye">detail</i></a>
                                 @else
-                                <a href="{{ route('user.mytransaction.show', $row->id) }}" class="btn btn-info"><i class="bi bi-eye">detail</i></a>
+                                <a href="{{ route('user.mytransaction.showDataBySlugAndId', [$row->slug, $row->id]) }}" class="btn btn-info"><i class="bi bi-eye">detail</i></a>
                                 @endif
                             </td>
                         </tr>

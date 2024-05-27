@@ -45,29 +45,34 @@
                             <td>{{ $row->phone }}</td>
                             <td>
                                 @if ($row->payment_url)
-                                    <a href="{{ $row->payment_url }}" target="_blank" class="btn btn-info d-flex justify-content-center">Pay</a>
+                                    <a href="{{ $row->payment_url }}" target="_blank"
+                                        class="btn btn-info d-flex justify-content-center">Pay</a>
                                 @else
                                     N/A
                                 @endif
                             </td>
                             <td>
                                 @if ($row->status == 'EXPIRED')
-                                <span class="badge bg-danger text-uppercast">Expired</span>
-                                    @elseif ($row->status == 'PENDING')
+                                    <span class="badge bg-danger text-uppercast">Expired</span>
+                                @elseif ($row->status == 'PENDING')
                                     <span class="badge bg-warning text-uppercast">Pending</span>
-                                    @elseif ($row->status == 'SATTLEMENT')
+                                @elseif ($row->status == 'SATTLEMENT')
                                     <span class="badge bg-info text-uppercast">Settlement</span>
-                                    @else
+                                @else
                                     <span class="badge bg-success text-uppercast">Success</span>
                                 @endif
                             </td>
                             <td>{{ number_format($row->total_price) }}</td>
                             <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#basicModal{{ $row->id }}">
-                                    <i class="bi bi-eye"></i>
+                                <a href="#" class="btn btn-info btn-sm mx-2">Show</a>
+                                <!-- Basic Modal -->
+
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                    data-bs-target="#updateStatus{{ $row->id }}">
+                                    Edit
                                 </button>
-                                @include('pages.admin.my-transaction.modal-show')
+                                @include('pages.admin.transaction.modal-edit')
+                                <!-- End Basic Modal-->
                             </td>
                         </tr>
                     @empty

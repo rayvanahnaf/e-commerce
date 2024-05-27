@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\Category;
-use App\Http\Controllers\Controller;
-use App\Models\cart;
-use App\Models\Product;
-use App\Models\transaction;
-use App\Models\transactionItem;
 use Exception;
-use Illuminate\Http\Request;
-use Midtrans\Config;
 use Midtrans\Snap;
+use App\Models\cart;
+use Midtrans\Config;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\transaction;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\transactionItem;
+use App\Http\Controllers\Controller;
 
 class FrontendController extends Controller
 {
@@ -82,6 +83,7 @@ class FrontendController extends Controller
             $transaction = transaction::create([
                 'user_id' => auth()->user()->id,
                 'name' => $data['name'],
+                'slug' => Str::slug($data['name']) . '-' . time(),
                 'email' => $data['email'],
                 'addres' => $data['addres'],
                 'phone' => $data['phone'],

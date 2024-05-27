@@ -30,13 +30,15 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function () {
     Route::resource('/category', AdminCategory::class)->except('create','show','edit');
     Route::resource('/product', ProductController::class)->except('create','show','edit');
     Route::resource('/product.gallery',ProductGalleryController::class)->except('create','show','edit','update');
-    Route::resource('/mytransaction',MyTransaction::class)->only('index','show');
+    Route::resource('/mytransaction',MyTransaction::class)->only('index');
+    Route::get('/mytransaction/{id}/{slug}',[MyTransaction::class,'showDataBySlugAndId'])->name('mytransaction.showDataBySlugAndId');
     Route::resource('/transaction',transactionController::class);
 });
 
 Route::name('user.')->prefix('user')->middleware('user')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\user\Dashboardcontroller::class, 'index'])->name('dashboard');
-    Route::resource('/mytransaction',MyTransaction::class)->only('index', 'show');
+    Route::resource('/mytransaction',MyTransaction::class)->only('index');
+    Route::get('/mytransaction/{id}/{slug}',[MyTransaction::class,'showDataBySlugAndId'])->name('mytransaction.showDataBySlugAndId');
 });
 
 Route::middleware('auth')->group(function () {
